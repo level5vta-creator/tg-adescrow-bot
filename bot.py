@@ -12,6 +12,7 @@ from contextlib import contextmanager
 
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
+app = Flask(name)
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import (
     Application,
