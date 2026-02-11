@@ -19,11 +19,12 @@ application = Application.builder().token(BOT_TOKEN).build()
 
 # ---- ADD WEBHOOK ROUTE HERE ----
 @app.post("/webhook")
-async def webhook():
+def webhook():
     data = request.get_json(force=True)
     update = Update.de_json(data, application.bot)
-    await application.process_update(update)
+    asyncio.run(application.process_update(update))
     return "ok"
+    
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import (
     Application,
