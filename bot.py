@@ -13,6 +13,17 @@ from contextlib import contextmanager
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
 app = Flask(__name__)
+
+# build telegram application
+application = Application.builder().token(BOT_TOKEN).build()
+
+# ---- ADD WEBHOOK ROUTE HERE ----
+@app.post("/webhook")
+async def webhook():
+    data = request.get_json(force=True)
+    update = Update.de_json(data, application.bot)
+    await application.process_update(update)
+    return "ok"
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import (
     Application,
